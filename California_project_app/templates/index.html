@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California House Price Prediction</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-100 via-white to-cyan-100 min-h-screen">
+
+<div class="max-w-5xl mx-auto py-10 px-4">
+
+    <!-- Heading -->
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-blue-700">
+            California House Price Prediction
+        </h1>
+
+        <p class="text-gray-600 mt-3">
+            Predict the median house value of a California census block using its features.
+        </p>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-white shadow-2xl rounded-2xl p-8">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Longitude -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Longitude
+                    </label>
+                    <input
+                        type="number"
+                        step="any"
+                        name="longitude"
+                        placeholder="-122.23"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Latitude -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Latitude
+                    </label>
+                    <input
+                        type="number"
+                        step="any"
+                        name="latitude"
+                        placeholder="37.88"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Housing Age -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Housing Median Age
+                    </label>
+                    <input
+                        type="number"
+                        name="housing_median_age"
+                        placeholder="41"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Total Rooms -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Total Rooms
+                    </label>
+                    <input
+                        type="number"
+                        name="total_rooms"
+                        placeholder="880"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Total Bedrooms -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Total Bedrooms
+                    </label>
+                    <input
+                        type="number"
+                        name="total_bedrooms"
+                        placeholder="129"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Population -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Population
+                    </label>
+                    <input
+                        type="number"
+                        name="population"
+                        placeholder="322"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Households -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Households
+                    </label>
+                    <input
+                        type="number"
+                        name="households"
+                        placeholder="126"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Median Income -->
+                <div>
+                    <label class="font-semibold text-gray-700">
+                        Median Income
+                    </label>
+                    <input
+                        type="number"
+                        step="any"
+                        name="median_income"
+                        placeholder="8.3252"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                </div>
+
+                <!-- Ocean Proximity -->
+                <div class="md:col-span-2">
+                    <label class="font-semibold text-gray-700">
+                        Ocean Proximity
+                    </label>
+
+                    <select
+                        name="ocean_proximity"
+                        required
+                        class="w-full mt-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                        <option value="<1H OCEAN">&lt;1H OCEAN</option>
+                        <option value="INLAND">INLAND</option>
+                        <option value="ISLAND">ISLAND</option>
+                        <option value="NEAR BAY">NEAR BAY</option>
+                        <option value="NEAR OCEAN">NEAR OCEAN</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Button -->
+            <div class="text-center mt-8">
+                <button
+                    type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-xl font-semibold shadow-lg transition duration-300"
+                >
+                    Predict Price
+                </button>
+            </div>
+
+        </form>
+
+        <!-- Prediction -->
+        {% if prediction %}
+        <div class="mt-10 bg-green-100 border border-green-300 rounded-xl p-6 text-center">
+
+            <h2 class="text-xl font-semibold text-green-700">
+                Predicted House Price
+            </h2>
+
+            <p class="text-3xl font-bold mt-2 text-green-900">
+                ${{ prediction|floatformat:2 }}
+            </p>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
